@@ -1,5 +1,12 @@
 # Draft shiny app
-# 2025-09-08
+# September 2025
+
+# If password protecting:
+# Add credentials and secure app at end of UI and check credentials at start of server
+credentials <- data.frame(
+  user = c("r5_staff"), # mandatory
+  password = c("microcystins20") # mandatory
+)
 
 # load script that calls libraries and imports data and formats
 source("LoadData.R")
@@ -154,8 +161,20 @@ ui <- page_navbar(
     )
 )
 
+# sets password screen
+ui <- secure_app(ui)
+
 # Define server logic required to draw a histogram
-server <- function(input, output) {
+server <- function(input, output, session) {
+  
+  # check_credentials returns a function to authenticate users
+  res_auth <- secure_server(
+    check_credentials = check_credentials(credentials)
+  )
+  
+  output$auth_output <- renderPrint({
+    reactiveValuesToList(res_auth)
+  })
   
   ### reactive data frame based on station_selelction
   df_sel <- reactive({

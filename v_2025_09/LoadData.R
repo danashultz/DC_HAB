@@ -8,6 +8,7 @@ library(readxl) #read in excel files
 library(plotly) #interative plots
 library(leaflet) #map
 library(DT) #data table formatting
+library(shinymanager) #authentication screen
 
 # Import data for shiny
 df_st <- read_excel("inputs/rtd_sites.xlsx")
