@@ -1,0 +1,28 @@
+<head>
+    <!-- Couldn't figure out how to call font awesome icons from water board library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Add formatting for consistency between this webpage and MyWaterQuality HAB Portal for 'Report a bloom' button */
+        /* https://mywaterquality.ca.gov/habs/ */
+        #contactus_report .btn {
+            color: #d2402d;
+            background-color: #fff;
+            border: 2px #d2402d solid;
+            font-weight: 600
+        }
+
+        #contactus_report .btn:hover {
+            background-color: #d2402d;
+            box-shadow: inset 12.5em 0 0 0 #d2402d;
+            transition: all 0.4s ease-in-out;
+            border: 2px #d2402d solid;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<div class="button_panel m-b-0" id="contactus_report" style="margin-right: auto; margin-left: auto;">
+    <a href="https://mywaterquality.ca.gov/habs/bloom-report/" class="btn btn-primary m-t-sm" target="blank">
+        Report a Bloom
+    </a>
+</div>
