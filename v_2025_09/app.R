@@ -16,6 +16,7 @@ ui <- page_navbar(
 
     ### Application title
     title = "Delta Community Data",
+    bg = "#9FC7DA",
     theme = bs_theme(
       #hex codes from existing water board webpages
       primary = "#046B99",
