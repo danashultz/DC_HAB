@@ -84,10 +84,12 @@ ui <- page_navbar(
             
             # main panel with reactive plotly graph
             plotlyOutput("xy_plot"),
-            "The ELISA reporting limit (dotted dark grey line) is 0.15 ug/L and non-detect (ND) samples
-            are plotted at 0.08 ug/L, half the reporting limit. HAB recreational advisory levels of 
-            Caution (Tier 1), Warning (Tier 2), and Danger (Tier 3) are plotted at 0.8, 6.0 and 20 ug/L 
-            as dashed grey lines."
+            "A logarithmic scale is used to plot total microcystin concentration 
+            (ug/L) on the y-axis.\n
+            Non-detect (ND) samples are shown on the plot below 0.1 ug/L in a 
+            grey rectangle.\n
+            HAB recreational advisory levels of Caution (Tier 1), Warning (Tier 2), 
+            and Danger (Tier 3) are plotted at 0.8, 6.0 and 20 ug/L as dashed grey lines."
             
           ) # end layout sidebar
         ), # end Graph nav_panel tab
@@ -144,7 +146,7 @@ ui <- page_navbar(
       title = "Related Links",
       align = "right",
       nav_item(
-        tags$a("CV Water Board HAB webpage",
+        tags$a("Central Valley Water Board HAB webpage",
                href = "https://www.waterboards.ca.gov/centralvalley/water_issues/harmful_algal_blooms/",
                target = "blank")
       ),
@@ -206,14 +208,15 @@ server <- function(input, output, session) {
       geom_hline(yintercept = 20, linetype = "dashed", color = "grey", alpha = 0.5)+
       geom_hline(yintercept = 6, linetype = "dashed", color = "grey", alpha = 0.5)+
       geom_hline(yintercept = 0.8, linetype = "dashed", color = "grey", alpha = 0.5)+
-      geom_hline(yintercept = 0.15, linetype = "dotted", color = "#676767", alpha = 0.5)+
+      geom_hline(yintercept = 0.075, color = "grey", linewidth = 4, lineend = "round", alpha = 0.5)+
       geom_point(size = 3, alpha = 0.5)+
       scale_shape_manual(values = my8shapes)+
       facet_wrap(vars(Year), nrow = 1, scales = "free_x")+
       scale_y_log10(labels = scales::label_comma())+
       theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))+
       labs(x = "Sample Date",
-           y = "Total Microcystins (ug/L)")
+           y = "Total Microcystins (ug/L)")+
+      theme_classic()
     
     #ggplotly(p, tooltip = c("CollectionDate", "total_microcystins_nd"))
     ggplotly(p, tooltip = "text")

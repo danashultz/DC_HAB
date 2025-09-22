@@ -51,13 +51,14 @@ tooltip_text <- paste0(
 # Arrange data table to have most recent data at the top
 df_table <- df %>%
   mutate(CollectionDate = as.Date(CollectionDate, format = "%m/%d/%Y")) %>% 
-  arrange(desc(CollectionDate))
+  arrange(desc(CollectionDate)) %>% 
+  mutate(ProjectCode = "WB_RTD_HAB_Monitoring")
 
 # Format data for plotting
 df_plot <- df %>% 
   mutate(Year = factor(Year)) %>% 
   #Set ND results to 0.01 for plotting 
-  mutate(`Total Microcystins` = case_when(`TotalMicrocystins` == "ND" ~ "0.07",
+  mutate(`Total Microcystins` = case_when(`TotalMicrocystins` == "ND" ~ "0.075",
                                           TRUE ~ `TotalMicrocystins`)) %>% 
   mutate(`Total Microcystins` = as.numeric(`Total Microcystins`)) %>% 
   # rename col with "_nd" for clarity, will use for plotly tooltip
@@ -73,5 +74,5 @@ y <- unique(df_plot$Year)
 #Define shapes to use for Station icons
 my8shapes <- c(15,16,17,18,15,16,17,18)
 
-ymin = min(df_plot$`Total Microcystins` )
+ymin = min(df_plot$`Total Microcystins`)
 ymax = max(df_plot$`Total Microcystins`)
